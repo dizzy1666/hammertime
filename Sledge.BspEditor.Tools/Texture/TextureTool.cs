@@ -293,7 +293,7 @@ namespace Sledge.BspEditor.Tools.Texture
             // Add selection highlights
             if (!hideFaceMask)
             {
-                foreach (var face in sel)
+                foreach (var face in sel.ToList())
                 {
                     var indOffs = indices.Count;
                     var offs = verts.Count;
@@ -324,7 +324,7 @@ namespace Sledge.BspEditor.Tools.Texture
             var uAxisColour = Color.Yellow.ToVector4();
             var vAxisColour = Color.Lime.ToVector4();
             var wfIndOffs = indices.Count;
-            foreach (var face in sel)
+            foreach (var face in sel.ToList())
             {
                 var offs = verts.Count;
 

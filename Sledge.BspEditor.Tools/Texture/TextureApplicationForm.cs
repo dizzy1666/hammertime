@@ -843,5 +843,30 @@ namespace Sledge.BspEditor.Tools.Texture
                 return Task.FromResult(true);
             });
         }
+
+		private void RRightButton_Click(object sender, EventArgs e)
+		{
+			RotateFaceTexture(90);
+		}
+
+		private void RotateFaceTexture(float degree)
+		{
+			var faces = GetFaceSelection();
+			_currentTextureProperties.Rotation += degree;
+			foreach (var face in faces)
+			{
+				face.Texture.SetRotation(face.Texture.Rotation + degree);
+			}
+			ApplyChanges((mo, f) =>
+			{
+				ApplyFaceValues(f);
+				return Task.FromResult(true);
+			});
+		}
+
+		private void RLeftButton_Click(object sender, EventArgs e)
+		{
+            RotateFaceTexture(-90);
+		}
 	}
 }

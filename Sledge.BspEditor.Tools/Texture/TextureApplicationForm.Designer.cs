@@ -69,6 +69,8 @@
 			this.RightClickActionButton = new Sledge.Shell.Controls.DropdownButton();
 			this.RightClickActionMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.ResetButton = new System.Windows.Forms.Button();
+			this.RRightButton = new System.Windows.Forms.Button();
+			this.RLeftButton = new System.Windows.Forms.Button();
 			this.AlignGroup.SuspendLayout();
 			this.JustifyGroup.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.RotationValue)).BeginInit();
@@ -157,6 +159,8 @@
 			// 
 			// JustifyGroup
 			// 
+			this.JustifyGroup.Controls.Add(this.RLeftButton);
+			this.JustifyGroup.Controls.Add(this.RRightButton);
 			this.JustifyGroup.Controls.Add(this.JustifyTopButton);
 			this.JustifyGroup.Controls.Add(this.JustifyFitButton);
 			this.JustifyGroup.Controls.Add(this.TreatAsOneCheckbox);
@@ -608,6 +612,26 @@
 			this.ResetButton.UseVisualStyleBackColor = true;
 			this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
 			// 
+			// RRightButton
+			// 
+			this.RRightButton.Location = new System.Drawing.Point(16, 15);
+			this.RRightButton.Name = "RRightButton";
+			this.RRightButton.Size = new System.Drawing.Size(20, 20);
+			this.RRightButton.TabIndex = 6;
+			this.RRightButton.Text = "↱";
+			this.RRightButton.UseVisualStyleBackColor = true;
+			this.RRightButton.Click += new System.EventHandler(this.RRightButton_Click);
+			// 
+			// RLeftButton
+			// 
+			this.RLeftButton.Location = new System.Drawing.Point(64, 15);
+			this.RLeftButton.Name = "RLeftButton";
+			this.RLeftButton.Size = new System.Drawing.Size(20, 20);
+			this.RLeftButton.TabIndex = 7;
+			this.RLeftButton.Text = "↰";
+			this.RLeftButton.UseVisualStyleBackColor = true;
+			this.RLeftButton.Click += new System.EventHandler(this.RLeftButton_Click);
+			// 
 			// TextureApplicationForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -635,7 +659,6 @@
 			this.Controls.Add(this.LightmapValue);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "TextureApplicationForm";
-			this.Opacity = 0.9D;
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -697,5 +720,7 @@
         private System.Windows.Forms.ContextMenuStrip LeftClickActionMenu;
         private System.Windows.Forms.ContextMenuStrip RightClickActionMenu;
 		private System.Windows.Forms.Button ResetButton;
+		private System.Windows.Forms.Button RRightButton;
+		private System.Windows.Forms.Button RLeftButton;
 	}
 }
