@@ -18,8 +18,19 @@ namespace Sledge.Providers.Texture
         public int Width => PrimarySubItem.Width;
         public int Height => PrimarySubItem.Height;
         public Size Size => new Size(Width, Height);
+        public string WadName { get; set; }
 
-        public TextureItem(string name, TextureFlags flags, int width, int height)
+		public TextureItem(string name, TextureFlags flags, int width, int height, string wadName)
+        {
+            Name = name;
+            Flags = flags;
+			var baseItem = new TextureSubItem(TextureSubItemType.Base, this, name, width, height);
+			SubItems = new Dictionary<TextureSubItemType, TextureSubItem> { { TextureSubItemType.Base, baseItem } };
+            WadName = wadName;
+		}
+
+
+		public TextureItem(string name, TextureFlags flags, int width, int height)
         {
             Name = name;
             Flags = flags;

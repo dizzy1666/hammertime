@@ -56,7 +56,16 @@ namespace Sledge.Providers.Texture.Wad
             var wp = new WadPackage(_file);
             var entry = wp.GetEntry(name);
             if (entry == null) return null;
-            return new TextureItem(entry.Name, GetFlags(entry), (int) entry.Width, (int) entry.Height);
+            string wadname;
+            try
+            {
+                wadname = wp.File.Name.Substring(0, wp.File.Name.LastIndexOf('.'));
+            }
+            catch (Exception ex)
+            {
+                wadname = wp.File.Name;
+            }
+            return new TextureItem(entry.Name, GetFlags(entry), (int) entry.Width, (int) entry.Height, wp.File.Name);
         }
 
         public override ITextureStreamSource GetStreamSource()

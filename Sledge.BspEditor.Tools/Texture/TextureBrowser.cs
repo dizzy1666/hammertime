@@ -129,7 +129,7 @@ namespace Sledge.BspEditor.Tools.Texture
                     {
                         this.InvokeLater(() =>
                         {
-                            TextureNameLabel.Text = ti == null ? t : ti.Result.Name;
+                            TextureNameLabel.Text = ti == null ? t : $"{ti.Result.WadName}/{ti.Result.Name}";
                             TextureSizeLabel.Text = ti == null ? "" : $@"{ti.Result.Width} x {ti.Result.Height}";
                         });
                     });
