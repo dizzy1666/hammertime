@@ -754,8 +754,17 @@ namespace Sledge.BspEditor.Tools.Texture
             {
                 Reset();
             }
-
-            public void Reset()
+			public void ResetTexture(IEnumerable<Face> faces)
+			{
+				Reset();
+				foreach (var face in faces)
+				{
+					face.Texture.XScale = face.Texture.YScale = 1;
+					 face.Texture.XShift = face.Texture.YShift = 0;
+                    face.Texture.SetRotation(0);
+				}
+			}
+			public void Reset()
             {
                 Rotation = XShift = YShift = 0;
                 XScale = YScale = 1;
@@ -812,5 +821,27 @@ namespace Sledge.BspEditor.Tools.Texture
                 Rotation = (Rotation % 360 + 360) % 360;
             }
         }
-    }
+
+		private async void ResetButton_Click(object sender, EventArgs e)
+		{
+            RotationValue.Value = 0;
+            ScaleXValue.Value = ScaleYValue.Value = 1;
+            ShiftXValue.Value = ShiftYValue.Value = 0;
+
+			var faces = GetFaceSelection();
+
+			_currentTextureProperties.ResetTexture(faces);
+
+            //foreach (var face in faces)
+            //{
+            //    ApplyFaceValues(face);
+            //}
+
+            await ApplyChanges((mo, f) =>
+            {
+                ApplyFaceValues(f);
+                return Task.FromResult(true);
+            });
+        }
+	}
 }

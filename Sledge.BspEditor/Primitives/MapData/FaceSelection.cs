@@ -8,10 +8,10 @@ using System.Runtime.Serialization;
 using Sledge.BspEditor.Primitives.MapObjectData;
 using Sledge.BspEditor.Primitives.MapObjects;
 using Sledge.Common.Transport;
-
+using System.Collections.Concurrent;
 namespace Sledge.BspEditor.Primitives.MapData
 {
-    public class FaceSelection : IMapData, IEnumerable<Face>
+    public class FaceSelection : BlockingCollection<Face>, IMapData, IEnumerable<Face>
     {
         public bool AffectsRendering => false;
 
