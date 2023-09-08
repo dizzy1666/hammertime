@@ -8,6 +8,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogicAndTrick.Oy;
+using Sledge.BspEditor.Commands.Clipboard;
 using Sledge.BspEditor.Documents;
 using Sledge.BspEditor.Rendering.Viewport;
 using Sledge.BspEditor.Tools.Draggable;
@@ -117,13 +118,36 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
                 Cancel();
                 e.Handled = true;
             }
-        }
 
-        protected override void KeyDown(MapDocument document, MapViewport viewport, OrthographicCamera camera, ViewportEvent e)
+
+
+		}
+
+		protected override void KeyDown(MapDocument document, MapViewport viewport, OrthographicCamera camera, ViewportEvent e)
         {
             HandleKeyDown(e);
             base.KeyDown(document, viewport, camera, e);
-        }
+
+
+			var nudge = GetNudgeValue(e.KeyCode);
+			if (nudge != null)
+			{
+				var translate = camera.Expand(nudge.Value);
+
+				var selected = GetVisiblePoints().Where(x => x.IsSelected).Distinct().SelectMany(x => x.GetStandardPointList()).ToList();
+				selected.ForEach(x => x.Move(translate));
+
+
+				foreach (var midpoint in selected.Select(x => x.Solid).Distinct().SelectMany(x => _vertices.TryGetValue(x, out var l) ? l.Points.Where(p => p.IsMidpoint) : new List<VertexPoint>()))
+				{
+					var p1 = midpoint.MidpointStart.IsDragging ? midpoint.MidpointStart.DraggingPosition : midpoint.MidpointStart.Position;
+					var p2 = midpoint.MidpointEnd.IsDragging ? midpoint.MidpointEnd.DraggingPosition : midpoint.MidpointEnd.Position;
+					midpoint.DraggingPosition = midpoint.Position = (p1 + p2) / 2;
+				}
+
+				Invalidate();
+			}
+		}
 
         protected override void KeyDown(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e)
         {

@@ -413,7 +413,7 @@ namespace Sledge.BspEditor.Tools
         protected virtual void DragEnd(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e) { }
         protected virtual void KeyPress(MapDocument document, MapViewport viewport, OrthographicCamera camera, ViewportEvent e) { }
         protected virtual void KeyPress(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e) { }
-        protected virtual void KeyDown(MapDocument document, MapViewport viewport, OrthographicCamera camera, ViewportEvent e) { }
+        protected virtual void KeyDown(MapDocument document, MapViewport viewport, OrthographicCamera camera, ViewportEvent e) {}
         protected virtual void KeyDown(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e) { }
         protected virtual void KeyUp(MapDocument document, MapViewport viewport, OrthographicCamera camera, ViewportEvent e) { }
         protected virtual void KeyUp(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e) { }

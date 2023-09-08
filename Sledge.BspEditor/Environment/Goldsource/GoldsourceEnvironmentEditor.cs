@@ -21,6 +21,8 @@ namespace Sledge.BspEditor.Environment.Goldsource
         private readonly IGameDataProvider _fgdProvider = Common.Container.Get<IGameDataProvider>("Fgd");
         private readonly ITexturePackageProvider _wadProvider = Common.Container.Get<ITexturePackageProvider>("Wad3");
 
+        private string[] _initialWadFiles = null;
+
         public IEnvironment Environment
         {
             get => GetEnvironment();
@@ -157,12 +159,16 @@ namespace Sledge.BspEditor.Environment.Goldsource
 
             nudDefaultTextureScale.Value = env.DefaultTextureScale;
 
+            List<string> initialWadFiles = new List<string>();
+
             cklTexturePackages.Items.Clear();
             foreach (var exc in env.ExcludedWads)
             {
                 cklTexturePackages.Items.Add(exc, false); // all wads not in this list will be excluded
+                initialWadFiles.Add(exc);
             }
             UpdateTexturePackages();
+            _initialWadFiles = initialWadFiles.ToArray();
 
             lstAdditionalTextures.Items.Clear();
             foreach (var fileName in env.AdditionalTextureFiles)
@@ -510,13 +516,18 @@ namespace Sledge.BspEditor.Environment.Goldsource
             }
             cklTexturePackages.BeginUpdate();
 
+            var initialWadFiles = new List<string>();
+
             cklTexturePackages.Items.Clear();
             foreach (var kv in state.OrderBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase))
             {
                 cklTexturePackages.Items.Add(kv.Key, kv.Value);
+                initialWadFiles.Add(kv.Key);
             }
 
             cklTexturePackages.EndUpdate();
+
+            _initialWadFiles = initialWadFiles.ToArray();
         }
 
         private void ToggleAllTextures(object sender, EventArgs e)
@@ -563,5 +574,20 @@ namespace Sledge.BspEditor.Environment.Goldsource
         {
             lstAdditionalTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
-    }
+
+		private void cklTexturePackages_KeyPress(object sender, KeyPressEventArgs e)
+		{
+            e.Handled = true;
+		}
+
+		private void FilterBox_TextChanged(object sender, EventArgs e)
+		{
+            var newCkList = _initialWadFiles;
+            var filteredList = newCkList.Where(x => x.Contains((sender as TextBox).Text)).ToList();
+
+            cklTexturePackages.Items.Clear();
+            cklTexturePackages.Items.AddRange(filteredList.ToArray());
+
+		}
+	}
 }

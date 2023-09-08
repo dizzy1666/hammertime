@@ -108,6 +108,7 @@ namespace Sledge.BspEditor.Tools.Vertex.Selection
                 }
             }
         }
+        public IEnumerable<VertexSolid> GetSolids() => _selectedSolids;
 
         public IEnumerator<VertexSolid> GetEnumerator()
         {
