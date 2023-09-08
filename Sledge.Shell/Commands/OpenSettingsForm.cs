@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using LogicAndTrick.Oy;
 using Sledge.Common.Shell.Commands;
 using Sledge.Common.Shell.Context;
+using Sledge.Common.Shell.Hotkeys;
 using Sledge.Common.Shell.Menu;
 using Sledge.Common.Translations;
 using Sledge.Shell.Properties;
@@ -15,7 +16,8 @@ namespace Sledge.Shell.Commands
     [AutoTranslate]
     [Export(typeof(ICommand))]
     [CommandID("Tools:Settings")]
-    [MenuItem("Tools", "", "Settings", "D")]
+	[DefaultHotkey("F2")]
+	[MenuItem("Tools", "", "Settings", "D")]
     [MenuImage(typeof(Resources), nameof(Resources.Menu_Options))]
     public class OpenSettingsForm : ICommand
     {
