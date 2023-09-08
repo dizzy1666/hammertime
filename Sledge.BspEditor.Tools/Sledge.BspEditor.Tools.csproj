@@ -249,6 +249,7 @@
     <Compile Include="Vertex\Tools\VertexFaceEditTool.cs" />
     <Compile Include="Vertex\Tools\VertexPointTool.cs" />
     <Compile Include="Vertex\Tools\VertexScaleTool.cs" />
+    <Compile Include="Vertex\Tools\VertexSplitEdge.cs" />
     <Compile Include="Vertex\Tools\VertexSubtool.cs" />
     <Compile Include="Vertex\Tools\WrapperDraggableState.cs" />
     <Compile Include="Vertex\VertexTool.cs" />
