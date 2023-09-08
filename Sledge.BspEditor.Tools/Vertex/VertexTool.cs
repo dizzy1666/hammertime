@@ -73,63 +73,6 @@ namespace Sledge.BspEditor.Tools.Vertex
 
             return Task.FromResult(false);
         }
-		//protected override void KeyDown(MapDocument document, MapViewport viewport, OrthographicCamera camera, ViewportEvent e)
-		//{
-		//	//if (e.KeyCode == Keys.Enter) Confirm(document, viewport);
-		//	//else if (e.KeyCode == Keys.Escape) Cancel(document, viewport);
-
-		//	base.KeyDown(document, viewport, camera, e);
-
-
-
-		//	var nudge = GetNudgeValue(e.KeyCode);
-		//	if (nudge != null && !document.Selection.IsEmpty)
-		//	{
-		//		var translate = camera.Expand(nudge.Value);
-		//		var transformation = Matrix4x4.CreateTranslation(translate.X, translate.Y, translate.Z);
-		//		var matrix = transformation;
-		//		ExecuteTransform(document, matrix, KeyboardState.Shift, TextureTransformationType.Uniform);
-		//		//SelectionChanged(document);
-		//	}
-		//}
-
-		///// <summary>
-		///// Runs the transform on all the currently selected objects
-		///// </summary>
-		///// <param name="document">The current document</param>
-		///// <param name="transform">The transformation to apply</param>
-		///// <param name="clone">True to create a clone before transforming the original.</param>
-		///// <param name="textureTransformationType"></param>
-		//private Task ExecuteTransform(MapDocument document, Matrix4x4 transform, bool clone, TextureTransformationType textureTransformationType)
-		//{
-  //          var selectedVertex = _selection.GetSolids();
-		//	var parents = document.Selection.ToList();
-		//	var transaction = new Transaction();
-
-			
-		//		// Transform the objects
-		//		transaction.Add(new Transform(transform, parents));
-
-		//		// Perform texture transforms if required
-		//		if (textureTransformationType == TextureTransformationType.Uniform)
-		//		{
-		//			transaction.Add(new TransformTexturesUniform(transform, parents.SelectMany(p => p.FindAll())));
-		//		}
-		//		else if (textureTransformationType == TextureTransformationType.Scale)
-		//		{
-		//			transaction.Add(new TransformTexturesScale(transform, parents.SelectMany(p => p.FindAll())));
-		//		}
-			
-		//	return MapDocumentOperation.Perform(document, transaction);
-		//}
-
-		//protected override void KeyDown(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e)
-		//{
-		//	//if (e.KeyCode == Keys.Enter) Confirm(document, viewport);
-		//	//else if (e.KeyCode == Keys.Escape) Cancel(document, viewport);
-
-		//	base.KeyDown(document, viewport, camera, e);
-		//}
 		public override Image GetIcon()
         {
             return Resources.Tool_VM;

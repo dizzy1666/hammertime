@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Sledge.BspEditor.Components;
 using Sledge.BspEditor.Documents;
@@ -54,7 +55,9 @@ namespace Sledge.BspEditor.Commands.Clipboard
                 }
 
                 // Get the pasted values, moving objects that have an id already in the map
-                var content = _clipboard.Value.GetPastedContent(document, (d, o) => CopyAndMove(d, o, step)).ToList();
+                //var content = _clipboard.Value.GetPastedContent(document, (d, o) => CopyAndMove(d, o, step)).ToList();
+                //without random moving
+                var content = _clipboard.Value.GetPastedContent(document, (d, o) => Copy(d, o)).ToList();
 
                 var transaction = new Transaction(
                     new Deselect(document.Selection),
@@ -65,8 +68,13 @@ namespace Sledge.BspEditor.Commands.Clipboard
                 await MapDocumentOperation.Perform(document, transaction);
             }
         }
+        private IMapObject Copy(MapDocument document, IMapObject o)
+        {
+			return (IMapObject)o.Copy(document.Map.NumberGenerator);
+		}
 
-        private IMapObject CopyAndMove(MapDocument document, IMapObject o, Vector3 step)
+
+		private IMapObject CopyAndMove(MapDocument document, IMapObject o, Vector3 step)
         {
             var copy = (IMapObject)o.Copy(document.Map.NumberGenerator);
             copy.Transform(Matrix4x4.CreateTranslation(_random.Next(-4, 5) * step.X, _random.Next(-4, 5) * step.Y, _random.Next(-4, 5) * step.Z));
