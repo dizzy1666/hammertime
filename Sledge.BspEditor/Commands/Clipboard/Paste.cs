@@ -53,11 +53,13 @@ namespace Sledge.BspEditor.Commands.Clipboard
                 {
                     step = grid.Grid.AddStep(Vector3.Zero, Vector3.One);
                 }
-
-                // Get the pasted values, moving objects that have an id already in the map
-                //var content = _clipboard.Value.GetPastedContent(document, (d, o) => CopyAndMove(d, o, step)).ToList();
-                //without random moving
-                var content = _clipboard.Value.GetPastedContent(document, (d, o) => Copy(d, o)).ToList();
+                //(((document.Control as MapDocumentControlHost).ActiveControl as MapDocumentContainer).ActiveControl as  Sledge.Rendering.Viewports.Viewport)
+				// Get the pasted values, moving objects that have an id already in the map
+				//var content = _clipboard.Value.GetPastedContent(document, (d, o) => CopyAndMove(d, o, step)).ToList();
+				var translation = Matrix4x4.CreateTranslation(_random.Next(-4, 5) * step.X, _random.Next(-4, 5) * step.Y, 0);
+				//without random moving
+				
+				var content = _clipboard.Value.GetPastedContent(document, (d, o) => CopyAndMove(d, o, translation)).ToList();
 
                 var transaction = new Transaction(
                     new Deselect(document.Selection),
@@ -76,8 +78,14 @@ namespace Sledge.BspEditor.Commands.Clipboard
 
 		private IMapObject CopyAndMove(MapDocument document, IMapObject o, Vector3 step)
         {
-            var copy = (IMapObject)o.Copy(document.Map.NumberGenerator);
+            var copy = Copy(document, o);
             copy.Transform(Matrix4x4.CreateTranslation(_random.Next(-4, 5) * step.X, _random.Next(-4, 5) * step.Y, _random.Next(-4, 5) * step.Z));
+            return copy;
+        }
+        private IMapObject CopyAndMove(MapDocument document, IMapObject o, Matrix4x4 translation)
+        {
+            var copy = Copy(document, o);
+            copy.Transform(translation); 
             return copy;
         }
     }
