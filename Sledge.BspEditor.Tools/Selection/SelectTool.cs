@@ -172,17 +172,20 @@ namespace Sledge.BspEditor.Tools.Selection
             });
             yield return Oy.Subscribe<RightClickMenuBuilder>("MapViewport:RightClick", b =>
             {
-                if (!(b.Viewport.Viewport.Camera is OrthographicCamera camera)) return;
-                var document = GetDocument();
-                if (document == null) return;
+                var camera = b.Viewport.Viewport.Camera;
 
-                var selectionBoundingBox = document.Selection.GetSelectionBoundingBox();
-                var point = camera.Flatten(camera.ScreenToWorld(b.Event.X, b.Event.Y));
-                var start = camera.Flatten(selectionBoundingBox.Start);
-                var end = camera.Flatten(selectionBoundingBox.End);
+				if ((camera is OrthographicCamera orthoCamera))
+                {
+                    var document = GetDocument();
+                    if (document == null) return;
 
-                if (point.X < start.X || point.X > end.X || point.Y < start.Y || point.Y > end.Y) return;
+                    var selectionBoundingBox = document.Selection.GetSelectionBoundingBox();
+                    var point = camera.Flatten(orthoCamera.ScreenToWorld(b.Event.X, b.Event.Y));
+                    var start = camera.Flatten(selectionBoundingBox.Start);
+                    var end = camera.Flatten(selectionBoundingBox.End);
 
+                    if (point.X < start.X || point.X > end.X || point.Y < start.Y || point.Y > end.Y) return;
+                }
                 // Clicked inside the selection bounds
                 b.Clear();
 
