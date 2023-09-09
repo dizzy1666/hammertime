@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using LogicAndTrick.Oy;
 using Sledge.BspEditor.Documents;
 using Sledge.BspEditor.Modification;
+using Sledge.BspEditor.Modification.Operations.Mutation;
 using Sledge.BspEditor.Modification.Operations.Selection;
 using Sledge.BspEditor.Modification.Operations.Tree;
 using Sledge.BspEditor.Primitives;
@@ -19,6 +20,7 @@ using Sledge.BspEditor.Rendering.Resources;
 using Sledge.BspEditor.Rendering.Viewport;
 using Sledge.BspEditor.Tools.Draggable;
 using Sledge.BspEditor.Tools.Properties;
+using Sledge.BspEditor.Tools.Selection.TransformationHandles;
 using Sledge.Common.Shell.Components;
 using Sledge.Common.Shell.Context;
 using Sledge.Common.Shell.Hotkeys;
@@ -31,6 +33,7 @@ using Sledge.Rendering.Engine;
 using Sledge.Rendering.Pipelines;
 using Sledge.Rendering.Primitives;
 using Sledge.Rendering.Resources;
+using Sledge.Shell.Input;
 
 namespace Sledge.BspEditor.Tools.Brush
 {
@@ -176,9 +179,19 @@ namespace Sledge.BspEditor.Tools.Brush
             else if (e.KeyCode == Keys.Escape) Cancel(document, viewport);
 
             base.KeyDown(document, viewport, camera, e);
-        }
 
-        protected override void KeyDown(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e)
+			var nudge = GetNudgeValue(e.KeyCode);
+            
+			if (nudge != null  && box.State.Action == BoxAction.Drawn)
+			{
+				var translate = camera.Expand(nudge.Value);
+				var transformation = Matrix4x4.CreateTranslation(translate.X, translate.Y, translate.Z);
+				var matrix = transformation;
+                box.State.Start += translate;
+                box.State.End += translate;
+			}
+		}
+		protected override void KeyDown(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e)
         {
             if (e.KeyCode == Keys.Enter) Confirm(document, viewport);
             else if (e.KeyCode == Keys.Escape) Cancel(document, viewport);
