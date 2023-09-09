@@ -47,8 +47,6 @@ namespace Sledge.BspEditor.Tools.Vertex.Controls
         private void SplitButtonClicked(object sender, EventArgs e)
         {
 			Oy.Publish("Command:Run", new CommandMessage("BspEditor:VertexSplitEdge"));
-
-			//Oy.Publish("VertexPointTool:SplitEdge", string.Empty);
 		}
 
 		private void MergeButtonClicked(object sender, EventArgs e)

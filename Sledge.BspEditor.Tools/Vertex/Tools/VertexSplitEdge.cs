@@ -1,4 +1,5 @@
-﻿using Sledge.BspEditor.Documents;
+﻿using LogicAndTrick.Oy;
+using Sledge.BspEditor.Documents;
 using Sledge.Common.Shell.Commands;
 using Sledge.Common.Shell.Context;
 using Sledge.Common.Shell.Hotkeys;
@@ -20,7 +21,7 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 
 		public Task Invoke(IContext context, CommandParameters parameters)
 		{
-			VertexPointTool.SplitEdge();
+			Oy.Publish("VertexPointTool:Split", string.Empty);
 
 			return Task.CompletedTask;
 		}

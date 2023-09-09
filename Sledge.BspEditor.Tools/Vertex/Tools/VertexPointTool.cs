@@ -51,13 +51,11 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 		private ConcurrentDictionary<VertexSolid, VertexList> _vertices;
 
 		private VisiblePoints _showPoints;
-		private static VertexPointTool _instance;
 
 
 
 		public VertexPointTool()
 		{
-			_instance = this;
 			_vertices = new ConcurrentDictionary<VertexSolid, VertexList>();
 
 			States.Add(new WrapperDraggableState(GetDraggables));
@@ -387,10 +385,6 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 			return edges.Any(x => (x.Start == s && x.End == e) || (x.Start == e && x.End == s))
 					   ? null
 					   : face;
-		}
-		public static void SplitEdge()
-		{
-			_instance?.Split();
 		}
 		private void Split()
 		{
