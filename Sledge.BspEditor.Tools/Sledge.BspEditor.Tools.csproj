@@ -255,6 +255,7 @@
     <Compile Include="Vertex\VertexTool.cs" />
     <Compile Include="Widgets\RotationWidget.cs" />
     <Compile Include="Widgets\Widget.cs" />
+    <Compile Include="WrapTexture\WrapTextureTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sledge.BspEditor.Editing\Sledge.BspEditor.Editing.csproj">
@@ -296,6 +297,7 @@
     <Content Include="Resources\Menu_Cordon.png" />
     <Content Include="Resources\Menu_IgnoreGrouping.png" />
     <Content Include="Resources\Menu_ReplaceTextures.png" />
+    <None Include="Resources\Tool_Wrap.png" />
     <Content Include="Resources\Tool_VM.png" />
     <Content Include="Translations\Sledge.BspEditor.Tools.en.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
