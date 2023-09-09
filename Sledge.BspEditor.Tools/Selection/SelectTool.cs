@@ -173,11 +173,12 @@ namespace Sledge.BspEditor.Tools.Selection
             yield return Oy.Subscribe<RightClickMenuBuilder>("MapViewport:RightClick", b =>
             {
                 var camera = b.Viewport.Viewport.Camera;
+				var document = GetDocument();
+				if (document == null) return;
+
 
 				if ((camera is OrthographicCamera orthoCamera))
                 {
-                    var document = GetDocument();
-                    if (document == null) return;
 
                     var selectionBoundingBox = document.Selection.GetSelectionBoundingBox();
                     var point = camera.Flatten(orthoCamera.ScreenToWorld(b.Event.X, b.Event.Y));
@@ -443,6 +444,7 @@ namespace Sledge.BspEditor.Tools.Selection
         /// <param name="e">The click event</param>
         protected override void MouseDown(MapDocument document, MapViewport viewport, PerspectiveCamera camera, ViewportEvent e)
         {
+            if (!document.Selection.IsEmpty && e.Button == MouseButtons.Right) return;
             // First, get the ray that is cast from the clicked point along the viewport frustrum
             var (rayStart, rayEnd) = camera.CastRayFromScreen(new Vector3(e.X, e.Y, 0));
             var ray = new Line(rayStart, rayEnd);
