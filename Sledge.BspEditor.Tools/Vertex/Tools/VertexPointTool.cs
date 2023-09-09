@@ -515,7 +515,7 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 
 		public bool SelectPointsInBox(Box box, bool toggle)
 		{
-			var inBox = GetVisiblePoints().Where(x => box.Vector3IsInside(x.Position)).ToList();
+			var inBox = GetVisiblePoints().Where(x => box.Vector3IsInside(x.Position)).Where(x=>!x.IsMidpoint).ToList();
 			Select(inBox, toggle);
 			return inBox.Any();
 		}
