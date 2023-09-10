@@ -31,7 +31,7 @@ namespace Sledge.BspEditor.Tools.Selection
 		public bool GetToggleState(IContext context)
 		{
 			if (!context.TryGet("ActiveDocument", out MapDocument doc)) return false;
-			var tf = doc.Map.Data.GetOne<GroupFlags>() ?? new GroupFlags();
+			var tf = doc.Map.Data.GetOne<SelectionOptions>() ?? new SelectionOptions();
 			return tf.IgnoreGrouping;
 		}
 

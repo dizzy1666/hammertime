@@ -220,7 +220,6 @@
     <Compile Include="Primitives\MapData\IMapData.cs" />
     <Compile Include="Primitives\MapObjectData\EntityData.cs" />
     <Compile Include="Primitives\MapObjectData\IMapObjectData.cs" />
-    <Compile Include="Primitives\MapObjects\GroupFlags.cs" />
     <Compile Include="Primitives\MapObjects\IMapElement.cs" />
     <Compile Include="Primitives\MapObjects\IMapObject.cs" />
     <Compile Include="Primitives\Map.cs" />
