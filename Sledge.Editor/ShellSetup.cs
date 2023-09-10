@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sledge.Common.Shell.Hooks;
 using Sledge.Common.Translations;
-using Sledge.Editor.Properties;
+using HammerTime.Editor.Properties;
 using Sledge.Shell;
 
 namespace Sledge.Editor
@@ -26,7 +26,7 @@ namespace Sledge.Editor
         {
             _shell.InvokeLater(() =>
             {
-                _shell.Icon = Resources.Sledge;
+                _shell.Icon = Resources.HammerTime;
                 _shell.Text = Title;
 
                 var prop = _shell.GetType().GetProperty("Title");

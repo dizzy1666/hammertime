@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogicAndTrick.Oy;
 using Sledge.Common.Translations;
-using Sledge.Editor.Properties;
+using HammerTime.Editor.Properties;
 
 namespace Sledge.Editor.Update
 {
@@ -26,7 +26,7 @@ namespace Sledge.Editor.Update
 
             var prefix = GetType().FullName;
 
-            Icon = Resources.Sledge;
+            Icon = Resources.HammerTime;
             Text = translations.GetString(prefix + ".Title");
             StatusLabel.Text = translations.GetString(prefix + ".UpdateAvailable");
             _downloadingLabel = translations.GetString(prefix + ".Downloading") ?? "";
