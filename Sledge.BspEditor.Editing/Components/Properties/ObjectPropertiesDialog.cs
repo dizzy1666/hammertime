@@ -29,9 +29,9 @@ namespace Sledge.BspEditor.Editing.Components.Properties
     [Export(typeof(IDialog))]
     [Export(typeof(IInitialiseHook))]
     [AutoTranslate]
-    public sealed partial class ObjectPropertiesDialog : BaseForm, IInitialiseHook, IDialog
+    public sealed partial class ObjectPropertiesDialog : Form, IInitialiseHook, IDialog
     {
-        private readonly Lazy<Form> _parent;
+		 private readonly Lazy<Form> _parent;
         private readonly IEnumerable<Lazy<IObjectPropertyEditorTab>> _tabs;
         private readonly IContext _context;
 
