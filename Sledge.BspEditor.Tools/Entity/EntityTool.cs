@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using LogicAndTrick.Oy;
 using Sledge.BspEditor.Documents;
 using Sledge.BspEditor.Modification;
@@ -28,6 +29,7 @@ using Sledge.Rendering.Cameras;
 using Sledge.Rendering.Pipelines;
 using Sledge.Rendering.Primitives;
 using Sledge.Rendering.Resources;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sledge.BspEditor.Tools.Entity
 {
@@ -136,7 +138,7 @@ namespace Sledge.BspEditor.Tools.Entity
             _menu = items.ToArray();
         }
 
-        public override Image GetIcon()
+        public override System.Drawing.Image GetIcon()
         {
             return Resources.Tool_Entity;
         }
@@ -249,11 +251,14 @@ namespace Sledge.BspEditor.Tools.Entity
                 {
                     var col = cls.Behaviours.Where(x => x.Name == "color").ToArray();
                     if (col.Any()) colour = col[0].GetColour(0);
-                }
-            }
+				}
+			}
+			var newClass = (await document.Environment.GetGameData()).Classes.FirstOrDefault(x => x.ClassType != ClassType.Base && (x.Name ?? "").ToLower() == gd) ?? new GameDataObject(gd, "", ClassType.Any);
+            var properties = newClass.Properties.Select(x => (x.Name ?? "").ToLower());
 
-            var entity = new Primitives.MapObjects.Entity(document.Map.NumberGenerator.Next("MapObject"))
-            {
+
+			var entity = new Primitives.MapObjects.Entity(document.Map.NumberGenerator.Next("MapObject"))
+			{
                 Data =
                 {
                     new EntityData { Name = gd },
@@ -261,6 +266,13 @@ namespace Sledge.BspEditor.Tools.Entity
                     new Origin(origin),
                 }
             };
+
+            foreach ( var property in properties)
+            {
+				var newKey = newClass.Properties.FirstOrDefault(x => (x.Name ?? "").ToLower() == property);
+
+                entity.EntityData.Properties.Add(property, newKey.DefaultValue);
+            }
 
             var transaction = new Transaction();
 
