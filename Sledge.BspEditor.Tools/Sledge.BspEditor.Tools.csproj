@@ -203,6 +203,7 @@
     <Compile Include="ToolActivator.cs" />
     <Compile Include="ToolStatusItem.cs" />
     <Compile Include="ToolViewportListener.cs" />
+    <Compile Include="Vertex\Commands\VertexClearSelection.cs" />
     <Compile Include="Vertex\Commands\VertexMerge.cs" />
     <Compile Include="Vertex\Controls\VertexEditFaceControl.cs">
       <SubType>UserControl</SubType>

@@ -97,6 +97,7 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 				b.AddSeparator();
 				b.AddCommand("BspEditor:VertexSplitEdge");
 				b.AddCommand("BspEditor:VertexMerge");
+				b.AddCommand("BspEditor:VertexDeselectAll");
 				b.AddSeparator();
 			});
 		}
