@@ -408,9 +408,7 @@ namespace Sledge.Shell.Registers
 
             private void Fire(object sender, EventArgs e)
             {
-                Task.WaitAll(MenuItem?.Invoke(Context).ContinueWith(t => MenuMenuItem.GetCurrentParent()?.InvokeLater(Update)));
-                Update();
-
+                MenuItem?.Invoke(Context).ContinueWith(t => MenuMenuItem.GetCurrentParent()?.InvokeLater(Update));
             }
 
             public override void Update()
