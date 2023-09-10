@@ -203,6 +203,7 @@
     <Compile Include="ToolActivator.cs" />
     <Compile Include="ToolStatusItem.cs" />
     <Compile Include="ToolViewportListener.cs" />
+    <Compile Include="Vertex\Commands\VertexMerge.cs" />
     <Compile Include="Vertex\Controls\VertexEditFaceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -249,7 +250,7 @@
     <Compile Include="Vertex\Tools\VertexFaceEditTool.cs" />
     <Compile Include="Vertex\Tools\VertexPointTool.cs" />
     <Compile Include="Vertex\Tools\VertexScaleTool.cs" />
-    <Compile Include="Vertex\Tools\VertexSplitEdge.cs" />
+    <Compile Include="Vertex\Commands\VertexSplitEdge.cs" />
     <Compile Include="Vertex\Tools\VertexSubtool.cs" />
     <Compile Include="Vertex\Tools\WrapperDraggableState.cs" />
     <Compile Include="Vertex\VertexTool.cs" />

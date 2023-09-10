@@ -86,6 +86,19 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 			yield return Oy.Subscribe<object>("VertexPointTool:Split", _ => Split());
 			yield return Oy.Subscribe<object>("VertexPointTool:Merge", _ => Merge());
 			yield return Oy.Subscribe<object>("VertexTool:DeselectAll", _ => DeselectAll());
+			yield return Oy.Subscribe<RightClickMenuBuilder>("MapViewport:RightClick", b =>
+			{
+				b.Clear();
+				b.AddCommand("BspEditor:Edit:Paste");
+				b.AddCommand("BspEditor:Edit:PasteSpecial");
+				b.AddSeparator();
+				b.AddCommand("BspEditor:Edit:Undo");
+				b.AddCommand("BspEditor:Edit:Redo");
+				b.AddSeparator();
+				b.AddCommand("BspEditor:VertexSplitEdge");
+				b.AddCommand("BspEditor:VertexMerge");
+				b.AddSeparator();
+			});
 		}
 
 		private void SetVisiblePoints(string visiblePoints)
@@ -515,7 +528,8 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 
 		public bool SelectPointsInBox(Box box, bool toggle)
 		{
-			var inBox = GetVisiblePoints().Where(x => box.Vector3IsInside(x.Position)).Where(x=>!x.IsMidpoint).ToList();
+			var inBox = GetVisiblePoints().Where(x => box.Vector3IsInside(x.Position)&&!x.IsMidpoint).ToList();
+			if(!inBox.Any()) inBox = GetVisiblePoints().Where(x => box.Vector3IsInside(x.Position)).ToList();
 			Select(inBox, toggle);
 			return inBox.Any();
 		}
@@ -632,7 +646,6 @@ namespace Sledge.BspEditor.Tools.Vertex.Tools
 		}
 
 		#endregion
-
 		private class VertexList
 		{
 			public VertexPointTool Tool { get; set; }
